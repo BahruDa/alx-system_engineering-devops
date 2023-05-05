@@ -1,20 +1,23 @@
 #!/bin/bash
 
-function audit_subdomain {
-  subdomain=$1
-  domain=$2
-  record_type=$(dig +short $subdomain.$domain | awk -F " " '{print $2}')
-  destination=$(dig +short $subdomain.$domain)
-  echo "The subdomain $subdomain is a $record_type record and points to $destination"
+function get_record {
+    local domain="$1"
+    local subdomain="$2"
+    local record_type="$3"
+    dig +short "$subdomain.$domain" "$record_type" | awk -v sub="$subdomain" -v type="$record_type" '{print "The subdomain " sub " is a " type " record and points to " $1}'
 }
 
-if [ $# -eq 0 ]
-  then
-    audit_subdomain www $1
-    audit_subdomain lb-01 $1
-    audit_subdomain web-01 $1
-    audit_subdomain web-02 $1
+if [[ $# -eq 1 ]]; then
+    domain="$1"
+    get_record "$domain" "www" "CNAME"
+    get_record "$domain" "lb-01" "A"
+    get_record "$domain" "web-01" "A"
+    get_record "$domain" "web-02" "A"
+elif [[ $# -eq 2 ]]; then
+    domain="$1"
+    subdomain="$2"
+    get_record "$domain" "$subdomain" "ANY"
 else
-  audit_subdomain $2 $1
+    echo "Usage: $0 <domain> [<subdomain>]"
 fi
 
