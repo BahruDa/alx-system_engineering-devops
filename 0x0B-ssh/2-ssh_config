@@ -2,5 +2,5 @@
 # Configure SSH configuration file
 Host 52.87.255.0
 IdentityFile ~/.ssh/school
-PasswordAuthentication yes
-ChallengeResponseAuthentication no
+PasswordAuthentication no
+
