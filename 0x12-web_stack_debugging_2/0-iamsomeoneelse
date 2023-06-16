@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-# script gives the ability to run anything as another user.
+# A script that runs the whoami command under the user passed as an argument
 sudo -u "$1" whoami
+

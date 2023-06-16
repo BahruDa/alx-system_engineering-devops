@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-#!/bin/bash
-
-function get_record {
-    local domain="$1"
-    local subdomain="$2"
-    local record_type="$3"
-    dig +short "$subdomain.$domain" "$record_type" | awk -v sub="$subdomain" -v type="$record_type" '{print "The subdomain " sub " is a " type " record and points to " $1}'
-}
-
-if [[ $# -eq 1 ]]; then
-    domain="$1"
-    get_record "$domain" "www" "CNAME"
-    get_record "$domain" "lb-01" "A"
-    get_record "$domain" "web-01" "A"
-    get_record "$domain" "web-02" "A"
-elif [[ $# -eq 2 ]]; then
-    domain="$1"
-    subdomain="$2"
-    get_record "$domain" "$subdomain" "ANY"
-else
-    echo "Usage: $0 <domain> [<subdomain>]"
-fi
-=======
 #!/usr/bin/env bash
 # displays contents about subdomains
 
@@ -39,5 +15,4 @@ do
 	display_info "$1" "$subdomain"
     fi
 done
->>>>>>> e3b073a (.)
 
