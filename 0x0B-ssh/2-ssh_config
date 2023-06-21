@@ -2,5 +2,5 @@
 # Configure SSH configuration file
 Host 54.144.81.168
 IdentityFile ~/.ssh/school
-PasswordAuthentication yes
+PasswordAuthentication no 
 
